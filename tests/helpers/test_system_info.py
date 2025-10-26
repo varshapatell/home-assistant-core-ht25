@@ -13,12 +13,12 @@ from homeassistant.helpers.system_info import async_get_system_info
 
 
 async def test_get_system_info(hass: HomeAssistant) -> None:
-    """Test the get system info."""
     info = await async_get_system_info(hass)
     assert isinstance(info, dict)
     assert info["version"] == current_version
     assert info["user"] is not None
-    assert json.dumps(info) is not None
+    dumped = json.dumps(info)
+    assert isinstance(dumped, str) and dumped
 
 
 async def test_get_system_info_supervisor_not_available(
